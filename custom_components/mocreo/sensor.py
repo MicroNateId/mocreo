@@ -31,7 +31,7 @@ async def async_setup_entry(
     if not coordinator.data:
         await coordinator.async_refresh()
 
-    _LOGGER.warning("MOCREO_COORDINATOR_DATA_KEYS: %s", list(coordinator.data.keys()) if coordinator.data else None)
+    _LOGGER.debug("MOCREO_COORDINATOR_DATA_KEYS: %s", list(coordinator.data.keys()) if coordinator.data else None)
 
     entities: list[SensorEntity] = []
     if coordinator.data:

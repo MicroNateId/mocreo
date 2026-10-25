@@ -24,7 +24,11 @@ class TestLiveHomeAssistantHost(unittest.TestCase):
 
     def test_remote_homeassistant_logs_for_errors(self):
         """Check remote Home Assistant log for any MOCREO errors."""
-        cmd = ["ssh", "HomeAssistant", "grep -i mocreo /config/home-assistant.log | grep -i error || true"]
+        cmd = [
+            "ssh",
+            "HomeAssistant",
+            "source /etc/profile; ha core logs -n 500 | grep -i custom_components.mocreo | grep -iE 'error|warning' || true",
+        ]
         try:
             result = subprocess.run(cmd, capture_output=True, text=True, timeout=10)
             if result.returncode == 0:
